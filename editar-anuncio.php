@@ -18,14 +18,25 @@ if(isset($_POST['titulo'])  && !empty($_POST['titulo'])) {
     $a->addAnuncio($titulo, $categoria, $valor, $descricao, $estado);
     ?>
     <div class="alert alert-success">
-        Produto adicionado com sucesso!
+        Produto editado com sucesso!
     </div>
     <?php
 }
+if(isset($_GET ['id']) && !empty($_GET['id'])) { 
+$info = $a->getAnuncio($_GET['id']);
+
+} else {
+    ?>
+    <script type="text/javascript">window.location.href="meus-anuncios.php";</script>
+    <?php
+    exit;
+}
 
 ?>
+
+
 <div class="container">
- <h1>Adicionar anuncios</h1>
+ <h1>Editar anuncios</h1>
 
  <form method="POST" enctype="multipart/form-data">
 
@@ -45,17 +56,21 @@ if(isset($_POST['titulo'])  && !empty($_POST['titulo'])) {
         ?>
      </select>
  </div>
-        <div class="form-group">
+ <div class="form-group">
             <label for="titulo">Titulo:</label>
-            <input type="text" name="titulo" id="titulo" class="form-control" />
+            <input type="text" name="titulo" id="titulo" class="form-control" value=" 
+            <?php echo $info['titulo']; ?>" />
+
         </div>
         <div class="form-group">
             <label for="valor">Valor:</label>
-            <input type="text" name="valor" id="valor" class="form-control" />
+            <input type="text" name="valor" id="valor" class="form-control" value="
+            <?php echo $info['valor']; ?>"/>
+           
         </div>
         <div class="form-group">
             <label for="descricao">Descrição:</label>
-            <textarea class="form-control" name="descricao"></textarea>         
+            <textarea class="form-control" name="descricao"><?php echo $info['descricao']; ?></textarea>         
         </div>
         <div class="form-group">
             <label for="estado">Estado de Conservação:</label>
@@ -65,7 +80,7 @@ if(isset($_POST['titulo'])  && !empty($_POST['titulo'])) {
          <option value="0">Ótimo</option> 
             </select>      
         </div>
-        <input type="submit" value="Adicionar" class="btn btn-default" />
+        <input type="submit" value="Salvar" class="btn btn-default" />
     </form>
 
 
